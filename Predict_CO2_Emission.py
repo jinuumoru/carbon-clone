@@ -5,7 +5,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import csv
+import logging
 
+# Set up logging
+logging.basicConfig(
+    filename='emission_predictions.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 # Placeholder function to simulate CO2 emission predictions
 def predict_emissions(inputs, factors):
     """
@@ -18,7 +25,10 @@ def predict_emissions(inputs, factors):
             base_emission = factors[key] * float(value)
             prediction += base_emission * 1.1  # Predicted is 110% of actual for simulation
     return round(prediction, 2)
-
+ # Log the prediction event
+    logging.info(f"Predicted emissions for inputs {inputs}: {final_prediction} tonnes CO2")
+    
+    return final_prediction
 # Function to plot actual vs. predicted emissions
 def plot_emissions(actual, predicted, category):
     """
