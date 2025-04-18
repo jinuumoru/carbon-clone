@@ -50,6 +50,13 @@ def calculate_emission(EMISSION_FACTORS):
                 if f.tell() == 0:
                     writer.writeheader()
                 writer.writerow({"Category": selected_category, "Inputs": inputs, "Total CO2 Emissions": total_emissions})
+            # Show previous emission data
+            st.subheader("Emission History")
+            try:
+                df = pd.read_csv("emission_data.csv")
+                st.dataframe(df.tail(10))  # Show last 10 records
+            except Exception as e:
+                st.warning("Could not load emission history.")
 
             # Return the data calculated during CO2 emission calculation
             return {"Category": selected_category, "Inputs": inputs, "Total CO2 Emissions": total_emissions}
